@@ -1,0 +1,42 @@
+MySQL Shell 1.0.11
+
+Copyright (c) 2016, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+Currently in JavaScript mode. Use \sql to switch to SQL mode and execute queries.
+mysql-js> \mysql
+SyntaxError: Unexpected token ILLEGAL
+mysql-js> \sql
+Switching to SQL mode... Commands end with ;
+mysql-sql> \connect -c root@localhost:3306
+Creating a Classic Session to 'root@localhost:3306'
+Enter password:
+Your MySQL connection id is 1
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> create user "prueba1"@"localhost" identified by "1234";
+Query OK, 0 rows affected (0.01 sec)
+mysql-sql> grant all on *.* to "prueba1"@"localhost";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create user "prueba2"@"localhost" identified by "1234";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> grant all on inventario.* to "prueba1"@"localhost";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create user "prueba3"@"localhost" identified by "1234";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> grant all on inventario.clientes to "prueba1"@"localhost";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create user "prueba4"@"localhost" identified by "1234";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> grant select on *.* to "prueba4"@"localhost";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> grant all on inventario.* to "prueba2"@"localhost";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> grant all on inventario.clientes to "prueba3"@"localhost";
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql>

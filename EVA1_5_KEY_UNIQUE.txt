@@ -1,0 +1,238 @@
+EVA1_5_KEY_UNIQUE
+practicas de create tables con KEY y UNIQUE
+*
+crear una tabla de datos personal
+	crear una tabla empleado
+		clave llave primaria 
+		apellido no nulo
+		nombre no nulo
+		salario_min default 20000
+		salario_max
+		departamento enum(sistemas, produccion, humanos, finanzas, jefes)
+		clave_acceso cadena unique
+
+
+	insertar un campo para moatrar enum, defualt y unique (permite nulos)
+	INVESTIGAR COMO RECUPERAR LA ULTIMA CLAVE AUTOINCREMENTADA
+
+MySQL Shell 1.0.11
+
+Copyright (c) 2016, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+Currently in JavaScript mode. Use \sql to switch to SQL mode and execute queries
+.
+mysql-js> \sql
+Switching to SQL mode... Commands end with ;
+mysql-sql> \connect -c juanito@localhost
+Creating a Classic Session to 'juanito@localhost'
+Enter password: ****
+Your MySQL connection id is 1
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> \use mundo
+Schema set to `mundo`.
+mysql-sql> create table ciudades(
+       ... ciudades_id int not null auto_increment primary key,
+       ... nombre varchar(50) not null,
+       ... poblacion int);
+Query OK, 0 rows affected (0.11 sec)
+mysql-sql> desc ciudades;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| ciudades_id | int(11)     | NO   | PRI | null    | auto_increment |
+| nombre      | varchar(50) | NO   |     | null    |                |
+| poblacion   | int(11)     | YES  |     | null    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.05 sec)
+mysql-sql> insert into ciudad(nombre, poblacion) values("CHIHUAHUA",60000000);
+ERROR: 1146 (42S02): Table 'mundo.ciudad' doesn't exist
+mysql-sql> insert into ciudades(nombre, poblacion) values("CHIHUAHUA",60000000);
+
+Query OK, 1 row affected (0.09 sec)
+mysql-sql> select * from ciudades;
++-------------+-----------+-----------+
+| ciudades_id | nombre    | poblacion |
++-------------+-----------+-----------+
+|           1 | CHIHUAHUA |  60000000 |
++-------------+-----------+-----------+
+1 row in set (0.00 sec)
+mysql-sql> insert into ciudad(poblacion) values(60000000);
+ERROR: 1146 (42S02): Table 'mundo.ciudad' doesn't exist
+mysql-sql> insert into ciudades(poblacion) values(60000000);
+Query OK, 1 row affected, 1 warning (0.08 sec)
+Warning (code 1364): Field 'nombre' doesn't have a default value
+mysql-sql> create table oceanos(
+       ... oceanos_id int not null key auto_increment,
+       ... nombre varchar(50) unique,
+       ... profundidad_media int default 3000);
+Query OK, 0 rows affected (0.14 sec)
+mysql-sql> desc oceanos;
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| oceanos_id        | int(11)     | NO   | PRI | null    | auto_increment |
+| nombre            | varchar(50) | YES  | UNI | null    |                |
+| profundidad_media | int(11)     | YES  |     | 3000    |                |
++-------------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.02 sec)
+mysql-sql> insert into oceanos(nombre,profundidad_media)values("pacifico",4000);
+
+Query OK, 1 row affected (0.47 sec)
+mysql-sql> insert into oceanos(nombre)values("indico");
+Query OK, 1 row affected (0.10 sec)
+mysql-sql> select * from oceanos;
++------------+----------+-------------------+
+| oceanos_id | nombre   | profundidad_media |
++------------+----------+-------------------+
+|          1 | pacifico |              4000 |
+|          2 | indico   |              3000 |
++------------+----------+-------------------+
+2 rows in set (0.00 sec)
+mysql-sql> insert into oceanos(nombre,profundidad_media)values("indico",4000);
+ERROR: 1062 (23000): Duplicate entry 'indico' for key 'nombre'
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+Closing old connection...
+Your MySQL connection id is 2
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> create database personal;
+Query OK, 1 row affected (0.03 sec)
+mysql-sql> show databases;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mundo                 |
+| mysql                 |
+| performance_schema    |
+| personal              |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+13 rows in set (0.11 sec)
+mysql-sql> \use personal
+Schema set to `personal`.
+mysql-sql> create table empleado(
+       ... clave_empleado int not null key auto_increment,
+       ... apellido varchar(50) not null,
+       ... nombre varchar(50) not null,
+       ... salario_min int defualt 20000,
+       ... salario_max int,
+       ... departamento ENUM("SISTEMAS","PRODUCCION","RECURSOS_HUMANOS","FINANZA
+S","JEFES"),
+       ... clave_acceso varchar(30) unique);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'defu
+alt 20000,
+salario_max int,
+departamento ENUM("SISTEMAS","PRODUCCION","RECUR' at line 5
+mysql-sql>
+
+---------------------------------------------------------------------------------------------------
+
+MySQL Shell 1.0.11
+
+Copyright (c) 2016, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+Currently in JavaScript mode. Use \sql to switch to SQL mode and execute queries.
+mysql-js> \sql
+Switching to SQL mode... Commands end with ;
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+Your MySQL connection id is 13
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> create database datos_personal;
+Query OK, 1 row affected (0.00 sec)
+mysql-sql> show databases;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datos_personal        |
+| datoscoches           |
+| ejercicios            |
+| examen_unidad_lll     |
+| inventario            |
+| mundo                 |
+| mysql                 |
+| nose                  |
+| performance_schema    |
+| personal              |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+16 rows in set (0.00 sec)
+mysql-sql> create table empleado(
+       ... empresa_id int not null auto_increment primary key,
+       ... nombre_emp varchar(20) not null,
+       ... apellido_emp varchar(20) not null,
+       ... salario_minimo int default 20000,
+       ... departamento enum("Sistemas", "Produccion", "Humanos", "Finanzas", "Jefes"),
+       ... clave_acceso int unique);
+Query OK, 0 rows affected (0.09 sec)
+mysql-sql> desc empleado;
++----------------+------------------------------------------------------------+------+-----+--------
+-+----------------+
+| Field          | Type                                                       | Null | Key | Default
+ | Extra          |
++----------------+------------------------------------------------------------+------+-----+--------
+-+----------------+
+| empresa_id     | int(11)                                                    | NO   | PRI | null
+ | auto_increment |
+| nombre_emp     | varchar(20)                                                | NO   |     | null
+ |                |
+| apellido_emp   | varchar(20)                                                | NO   |     | null
+ |                |
+| salario_minimo | int(11)                                                    | YES  |     | 20000
+ |                |
+| departamento   | enum('Sistemas','Produccion','Humanos','Finanzas','Jefes') | YES  |     | null
+ |                |
+| clave_acceso   | int(11)                                                    | YES  | UNI | null
+ |                |
++----------------+------------------------------------------------------------+------+-----+--------
+-+----------------+
+6 rows in set (0.08 sec)
+mysql-sql> insert into empleado(apellido_emp, nombre_emp, departamento, clave_ac
+       ... ceso) values ("Garcia", "Israel", "Finanzas", 1);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your
+ MySQL server version for the right syntax to use near 'ceso) values ("Garcia", "Israel", "Finanzas"
+, 1)' at line 2
+mysql-sql> insert into empleado(nombre_emp, apellido_emp, departamento, clave_acceso) values ("Israe
+l", "Garcia", "finanzas", 2);
+Query OK, 1 row affected (0.12 sec)
+mysql-sql> select * from emplado;
+ERROR: 1146 (42S02): Table 'datos_personal.emplado' doesn't exist
+mysql-sql> select * from empleado;
++------------+------------+--------------+----------------+--------------+--------------+
+| empresa_id | nombre_emp | apellido_emp | salario_minimo | departamento | clave_acceso |
++------------+------------+--------------+----------------+--------------+--------------+
+|          1 | Israel     | Garcia       |          20000 | Finanzas     |            2 |
++------------+------------+--------------+----------------+--------------+--------------+
+1 row in set (0.00 sec)
+mysql-sql>

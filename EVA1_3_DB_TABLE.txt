@@ -1,0 +1,392 @@
+MySQL Shell 1.0.11
+
+Copyright (c) 2016, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+Currently in JavaScript mode. Use \sql to switch to SQL mode and execute queries
+.
+mysql-js> \sql
+Switching to SQL mode... Commands end with ;
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+Your MySQL connection id is 1
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases
+       ... ;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mysql                 |
+| performance_schema    |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+11 rows in set (0.27 sec)
+mysql-sql> create database mi_primer_bd;
+Query OK, 1 row affected (0.03 sec)
+mysql-sql> show databases
+       ... ;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mi_primer_bd          |
+| mysql                 |
+| performance_schema    |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+12 rows in set (0.00 sec)
+mysql-sql> \use mi_primer_bd;
+MySQL Error (1049): Unknown database 'mi_primer_bd;'
+mysql-sql> \use mi_primer_bd
+Schema set to `mi_primer_bd`.
+mysql-sql> show tables
+       ... ;
+Empty set (0.00 sec)
+mysql-sql> show tables;
++------------------------+
+| Tables_in_mi_primer_bd |
++------------------------+
+| table asd              |
++------------------------+
+1 row in set (0.00 sec)
+mysql-sql> drop database if exist bd_asgi;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'exis
+t bd_asgi' at line 1
+mysql-sql> drop database if exist mi_primer_bd;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'exis
+t mi_primer_bd' at line 1
+mysql-sql> drop database if exists mi_primer_bd;
+Query OK, 1 row affected (0.11 sec)
+mysql-sql> show databases;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mysql                 |
+| performance_schema    |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+11 rows in set (0.00 sec)
+mysql-sql> create database mundo;
+Query OK, 1 row affected (0.02 sec)
+mysql-sql> create user "juanito"@"localhost" identified by "1234";
+Query OK, 0 rows affected (0.05 sec)
+mysql-sql> grant all privileges on mundo.* to "juanito"@"localhost" with grant o
+ption;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> \connect -c juanito@localhost
+Creating a Classic Session to 'juanito@localhost'
+Enter password: ****
+Closing old connection...
+Your MySQL connection id is 4
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases
+       ... ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mundo              |
+| test               |
++--------------------+
+3 rows in set (0.00 sec)
+mysql-sql> use mundo;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... poblacion int,
+       ... capital varchar(50);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '' at
+ line 5
+mysql-sql> show tables;
+Empty set (0.00 sec)
+mysql-sql> \use mundo
+Schema set to `mundo`.
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... poblacion varchar,
+       ... capital varchar(50)
+       ... ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '
+capital varchar(50)' at line 4
+mysql-sql>
+
+MySQL Shell 1.0.11
+
+Copyright (c) 2016, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+Currently in JavaScript mode. Use \sql to switch to SQL mode and execute queries
+.
+mysql-js> \sql
+Switching to SQL mode... Commands end with ;
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+Your MySQL connection id is 1
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases
+       ... ;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mysql                 |
+| performance_schema    |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+11 rows in set (0.27 sec)
+mysql-sql> create database mi_primer_bd;
+Query OK, 1 row affected (0.03 sec)
+mysql-sql> show databases
+       ... ;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mi_primer_bd          |
+| mysql                 |
+| performance_schema    |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+12 rows in set (0.00 sec)
+mysql-sql> \use mi_primer_bd;
+MySQL Error (1049): Unknown database 'mi_primer_bd;'
+mysql-sql> \use mi_primer_bd
+Schema set to `mi_primer_bd`.
+mysql-sql> show tables
+       ... ;
+Empty set (0.00 sec)
+mysql-sql> show tables;
++------------------------+
+| Tables_in_mi_primer_bd |
++------------------------+
+| table asd              |
++------------------------+
+1 row in set (0.00 sec)
+mysql-sql> drop database if exist bd_asgi;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'exis
+t bd_asgi' at line 1
+mysql-sql> drop database if exist mi_primer_bd;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'exis
+t mi_primer_bd' at line 1
+mysql-sql> drop database if exists mi_primer_bd;
+Query OK, 1 row affected (0.11 sec)
+mysql-sql> show databases;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mysql                 |
+| performance_schema    |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+11 rows in set (0.00 sec)
+mysql-sql> create database mundo;
+Query OK, 1 row affected (0.02 sec)
+mysql-sql> create user "juanito"@"localhost" identified by "1234";
+Query OK, 0 rows affected (0.05 sec)
+mysql-sql> grant all privileges on mundo.* to "juanito"@"localhost" with grant o
+ption;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> \connect -c juanito@localhost
+Creating a Classic Session to 'juanito@localhost'
+Enter password: ****
+Closing old connection...
+Your MySQL connection id is 4
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases
+       ... ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mundo              |
+| test               |
++--------------------+
+3 rows in set (0.00 sec)
+mysql-sql> use mundo;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... poblacion int,
+       ... capital varchar(50);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '' at
+ line 5
+mysql-sql> show tables;
+Empty set (0.00 sec)
+mysql-sql> \use mundo
+Schema set to `mundo`.
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... poblacion varchar,
+       ... capital varchar(50)
+       ... ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '
+capital varchar(50)' at line 4
+mysql-sql> \connect -c juanito@localhost
+Creating a Classic Session to 'juanito@localhost'
+Enter password: ****
+Closing old connection...
+Your MySQL connection id is 7
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> use mundo;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... polacion int,
+       ... capital varvhar(50);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'varv
+har(50)' at line 5
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... polacion int,
+       ... capital varvhar(50));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'varv
+har(50))' at line 5
+mysql-sql> \connect -c juanito@localhost
+Creating a Classic Session to 'juanito@localhost'
+Enter password: ****
+Closing old connection...
+Your MySQL connection id is 8
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> use mundo;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... polacion int,
+       ... capital varvhar(50));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'varv
+har(50))' at line 5
+mysql-sql> \use mundo
+Schema set to `mundo`.
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... polacion int,
+       ... capital varvhar(50));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near 'varv
+har(50))' at line 5
+mysql-sql> create table paises(
+       ... paises_id int,
+       ... nombre varchar(50),
+       ... polacion int,
+       ... capital varchar(50));
+Query OK, 0 rows affected (0.18 sec)
+mysql-sql> show tables;
++-----------------+
+| Tables_in_mundo |
++-----------------+
+| paises          |
++-----------------+
+1 row in set (0.00 sec)
+mysql-sql> desc paises;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| paises_id | int(11)     | YES  |     | null    |       |
+| nombre    | varchar(50) | YES  |     | null    |       |
+| polacion  | int(11)     | YES  |     | null    |       |
+| capital   | varchar(50) | YES  |     | null    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+mysql-sql> create table paises_copia like paises;
+Query OK, 0 rows affected (0.23 sec)
+mysql-sql> show tables;
++-----------------+
+| Tables_in_mundo |
++-----------------+
+| paises          |
+| paises_copia    |
++-----------------+
+2 rows in set (0.00 sec)
+mysql-sql> desc paises_copia;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| paises_id | int(11)     | YES  |     | null    |       |
+| nombre    | varchar(50) | YES  |     | null    |       |
+| polacion  | int(11)     | YES  |     | null    |       |
+| capital   | varchar(50) | YES  |     | null    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+mysql-sql>

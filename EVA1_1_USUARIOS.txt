@@ -1,0 +1,161 @@
+MySQL Shell 1.0.11
+
+Copyright (c) 2016, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+Currently in JavaScript mode. Use \sql to switch to SQL mode and execute queries
+.
+mysql-js> \sql
+Switching to SQL mode... Commands end with ;
+mysql-sql> \connect -c root@localhost:3306
+Creating a Classic Session to 'root@localhost:3306'
+Enter password:
+Your MySQL connection id is 11
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> create user "prueba"@"localhost" identified by "123"
+       ... ;
+Query OK, 0 rows affected (0.33 sec)
+mysql-sql> \connect -c prueba@localhost
+Creating a Classic Session to 'prueba@localhost'
+Enter password: ***
+Closing old connection...
+Your MySQL connection id is 16
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases
+       ... ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| test               |
++--------------------+
+2 rows in set (0.00 sec)
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+Closing old connection...
+Your MySQL connection id is 17
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> grant all on  *.* to "prueba"@"localhost"
+       ... ;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> \connect -c prueba@localhost
+Creating a Classic Session to 'prueba@localhost'
+Enter password: ***
+Closing old connection...
+Your MySQL connection id is 18
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| banco2             |
+| datoscoches        |
+| examen             |
+| ifwoew             |
+| inventario         |
+| jiuiu              |
+| mysql              |
+| performance_schema |
+| practica2          |
+| practica2azteca    |
+| test               |
++--------------------+
+12 rows in set (0.00 sec)
+mysql-sql> use inventario;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> show tables;
++-----------------------------------+
+| Tables_in_inventario              |
++-----------------------------------+
+| clientes                          |
+| empleados                         |
+| idciudad                          |
+| inventario                        |
+| productos                         |
+| proveedor                         |
+| proveedor_has_productos           |
+| ventas                            |
+| ventas_has_clientes               |
+| ventas_has_clientes_has_productos |
++-----------------------------------+
+10 rows in set (0.29 sec)
+mysql-sql> select* from clientes;
++------------+--------+------------+-----------+--------------------------+-----
+--------------+--------------------+------+-------------------+
+| no_cliente | nombre | a_paterno  | a_materno | Direccion - No. exterior | Dire
+ccion - Calle | Direccion- Colonia | CP   | IdCiudad_IdCiudad |
++------------+--------+------------+-----------+--------------------------+-----
+--------------+--------------------+------+-------------------+
+|          1 | Jose   | Torres     | Cardenas  | 5843                     | Vill
+a Morada      | Villa Union        |  953 |                 4 |
+|          2 | Israel | Garcia     | Acosta    | 9045                     | Vill
+a Azul        | Centro             |  329 |                 5 |
+|          3 | Anaid  | Tena       | Farias    | 4289                     | Vill
+a Verde       | Villa Separada     |  238 |                 2 |
+|          4 | Martin | Alanis     | Rivera    | 90                       | Vill
+a Amarillo    | Centro             |  903 |                 1 |
+|          5 | Miguel | Balderrama | Marrufo   | 43                       | Vill
+a Roja        | Villa Plata        | 1239 |                 7 |
+|          6 | Rubi   | Ochoa      | Rodriguez | 934                      | Vill
+a Morada      | Villa Union        |  954 |                 5 |
+|          7 | Karla  | Ramirez    | Rodriguez | 346                      | Vill
+a Gris        | Centro             | 8349 |                 3 |
+|          8 | Karina | Aguilar    | Arzate    | 439                      | Vill
+a Naranja     | Nacional           |  934 |                 1 |
+|          9 | Luis   | Arzate     | Marquez   | 8394                     | Vila
+ Naranja      | Nacional           |  934 |                 1 |
+|         10 | Fidela | Estrada    | Orrantia  | 123                      | Vill
+a Blana       | Centro             | 9340 |                 6 |
++------------+--------+------------+-----------+--------------------------+-----
+--------------+--------------------+------+-------------------+
+10 rows in set (0.32 sec)
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+Closing old connection...
+Your MySQL connection id is 19
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> revoke all privileges, grant option from "prueba"@"localhost"
+       ... ;
+Query OK, 0 rows affected (0.04 sec)
+mysql-sql> grant select  on *.* to "prueba"@"localhost"
+       ... ;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> \connect -c prueba@localhost
+Creating a Classic Session to 'prueba@localhost'
+Enter password: ***
+Closing old connection...
+Your MySQL connection id is 20
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| banco2             |
+| datoscoches        |
+| examen             |
+| ifwoew             |
+| inventario         |
+| jiuiu              |
+| mysql              |
+| performance_schema |
+| practica2          |
+| practica2azteca    |
+| test               |
++--------------------+
+12 rows in set (0.00 sec)
+mysql-sql> \use inventario

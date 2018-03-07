@@ -1,0 +1,213 @@
+MySQL Shell 1.0.11
+
+Copyright (c) 2016, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+Currently in JavaScript mode. Use \sql to switch to SQL mode and execute queries
+.
+mysql-js> \sql
+Switching to SQL mode... Commands end with ;
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+ERROR: 2003 (HY000): Can't connect to MySQL server on 'localhost' (10061)
+mysql-sql> show databases;
+ERROR: Not connected.
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+ERROR: 2003 (HY000): Can't connect to MySQL server on 'localhost' (10061)
+mysql-sql> \connect -c root@localhost
+Creating a Classic Session to 'root@localhost'
+Enter password:
+Your MySQL connection id is 1
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> show databases;
++-----------------------+
+| Database              |
++-----------------------+
+| information_schema    |
+| banco2                |
+| datoscoches           |
+| examen_unidad_lll     |
+| inventario            |
+| mundo                 |
+| mysql                 |
+| performance_schema    |
+| practica2             |
+| practica2azteca       |
+| practica_12_topavprog |
+| test                  |
++-----------------------+
+12 rows in set (0.28 sec)
+mysql-sql> \use inventario
+Schema set to `inventario`.
+mysql-sql> show tables;
++-----------------------------------+
+| Tables_in_inventario              |
++-----------------------------------+
+| ciudad                            |
+| clientes                          |
+| empleados                         |
+| inventario                        |
+| productos                         |
+| proveedor                         |
+| proveedor_has_productos           |
+| ventas                            |
+| ventas_has_clientes               |
+| ventas_has_clientes_has_productos |
++-----------------------------------+
+10 rows in set (0.00 sec)
+mysql-sql> create table mundo.copia_ciudad as select* from inventario.ciudad;
+Query OK, 11 rows affected (0.28 sec)
+
+Records: 11  Duplicates: 0  Warnings: 0
+mysql-sql> \use mundo
+Schema set to `mundo`.
+mysql-sql> show tables;
++-----------------+
+| Tables_in_mundo |
++-----------------+
+| copia_ciudad    |
+| paises          |
+| paises_copia    |
++-----------------+
+3 rows in set (0.00 sec)
+mysql-sql> select * from copia_ciudad limit 4;
++-----------+------------+
+| no_ciudad | nombre     |
++-----------+------------+
+|         1 | chihuahua  |
+|         2 | cuauhtemoc |
+|         3 | Parral     |
+|         4 | Delicias   |
++-----------+------------+
+4 rows in set (0.00 sec)
+mysql-sql> create temporary table mundo.copia_ciudad_temp as select* from invent
+ario.ciudad;
+Query OK, 11 rows affected (0.08 sec)
+
+Records: 11  Duplicates: 0  Warnings: 0
+mysql-sql> \use mundo
+Schema set to `mundo`.
+mysql-sql> show tables;
++-----------------+
+| Tables_in_mundo |
++-----------------+
+| copia_ciudad    |
+| paises          |
+| paises_copia    |
++-----------------+
+3 rows in set (0.00 sec)
+mysql-sql> select * from copia_ciudad_temp limit 3;
++-----------+------------+
+| no_ciudad | nombre     |
++-----------+------------+
+|         1 | chihuahua  |
+|         2 | cuauhtemoc |
+|         3 | Parral     |
++-----------+------------+
+3 rows in set (0.00 sec)
+mysql-sql> desc copia_ciudad;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| no_ciudad | int(11)     | NO   |     | null    |       |
+| nombre    | varchar(45) | NO   |     | null    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.06 sec)
+mysql-sql> \connect -c juanito@localhost
+Creating a Classic Session to 'juanito@localhost'
+Enter password: ****
+Closing old connection...
+Your MySQL connection id is 2
+Server version: 5.5.8-log MySQL Community Server (GPL)
+No default schema selected; type \use <schema> to set one.
+mysql-sql> \use mundo
+Schema set to `mundo`.
+mysql-sql> create table comida.mundo(
+       ... comida-id,
+       ... nombre_comida ENUM('TACOS','BURRITOS','CARNE ASADA','TLACOYOS'),
+       ... precio decimal(10,2));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near '-id,
+
+nombre_comida ENUM('TACOS','BURRITOS','CARNE ASADA','TLACOYOS'),
+precio dec' at line 2
+mysql-sql> create table comida.mundo(
+       ... nombre_comida ENUM("TACOS","BURRITOS","CARNE ASADA","TLACOYOS"),
+       ... precio decimal(10,2));
+ERROR: 1142 (42000): CREATE command denied to user 'juanito'@'localhost' for tab
+le 'mundo'
+mysql-sql> use mundo;
+Query OK, 0 rows affected (0.00 sec)
+mysql-sql> create table comida.mundo(
+       ... precio decimal(10,2));
+ERROR: 1142 (42000): CREATE command denied to user 'juanito'@'localhost' for tab
+le 'mundo'
+mysql-sql> create table comida_mundo(
+       ... comida_id int,
+       ... nombre_comida ENUM("TACOS","BURRITOS","CARNE ASADA","TLACOYOS"),
+       ... precio decimal(10,2));
+Query OK, 0 rows affected (0.18 sec)
+mysql-sql> desc comida_mundo;
++---------------+---------------------------------------------------+------+----
+-+---------+-------+
+| Field         | Type                                              | Null | Key
+ | Default | Extra |
++---------------+---------------------------------------------------+------+----
+-+---------+-------+
+| comida_id     | int(11)                                           | YES  |
+ | null    |       |
+| nombre_comida | enum('TACOS','BURRITOS','CARNE ASADA','TLACOYOS') | YES  |
+ | null    |       |
+| precio        | decimal(10,2)                                     | YES  |
+ | null    |       |
++---------------+---------------------------------------------------+------+----
+-+---------+-------+
+3 rows in set (0.01 sec)
+mysql-sql> insert into comimda_mundo value(1,"burritos",10.2);
+ERROR: 1146 (42S02): Table 'mundo.comimda_mundo' doesn't exist
+mysql-sql> insert into comida_mundo value(1,"burritos",10.2);
+Query OK, 1 row affected (0.08 sec)
+mysql-sql> select * from comida_mundo;
++-----------+---------------+--------+
+| comida_id | nombre_comida | precio |
++-----------+---------------+--------+
+|         1 | BURRITOS      |  10.20 |
++-----------+---------------+--------+
+1 row in set (0.00 sec)
+mysql-sql> create table viajero(
+       ... viajero_id int not null,
+       ... articulo varchar(50),
+       ... viaticos decimal(10,2) not null);
+Query OK, 0 rows affected (0.67 sec)
+mysql-sql> desc viajero;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| viajero_id | int(11)       | NO   |     | null    |       |
+| articulo   | varchar(50)   | YES  |     | null    |       |
+| viaticos   | decimal(10,2) | NO   |     | null    |       |
++------------+---------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+mysql-sql> insert into viajero values(1," ",100.50);
+Query OK, 1 row affected (0.08 sec)
+mysql-sql> insert into viajero values(2,"maleta",);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that
+ corresponds to your MySQL server version for the right syntax to use near ')' a
+t line 1
+mysql-sql> select * from viajero;
++------------+----------+----------+
+| viajero_id | articulo | viaticos |
++------------+----------+----------+
+|          1 |          |   100.50 |
++------------+----------+----------+
+1 row in set (0.00 sec)
+mysql-sql>
